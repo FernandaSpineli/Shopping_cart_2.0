@@ -8,7 +8,7 @@ class Users(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20)
-    addresses = []
+    #addresses = []
     
 class Address(models.Model):
     nickname = models.CharField(max_length=20)
