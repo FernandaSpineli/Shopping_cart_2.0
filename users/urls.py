@@ -1,8 +1,8 @@
 from django.urls import path
 
-from users.views import user_detail
+from users.views import user_detail, user_list
 
 urlpatterns = [
-    #path('agendamentos/', agendamento_list),
-    path('agendamentos/<int:id>/', user_detail)
+    path('usuarios/', user_list),
+    path('usuarios/<int:id>/', user_detail)
 ]

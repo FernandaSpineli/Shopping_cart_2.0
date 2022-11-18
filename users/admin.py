@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from users.models import Users
+from users.models import User, Address
 # Register your models here.
 
-admin.site.register(Users)
+admin.site.register(User)
+admin.site.register(Address)

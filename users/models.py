@@ -1,9 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class Users(models.Model):
+class User(models.Model):
     name = models.CharField(max_length=200)
-    cpf = models.CharField(max_length=14)
+    CPF = models.CharField(max_length=14)
     birth_date = models.DateField()
     email = models.EmailField()
     password = models.CharField(max_length=20)
