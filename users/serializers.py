@@ -20,6 +20,11 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ['id', 'nickname', 'street', 'house_number', 'zipcode', 'city', 'state']
+        
+    #nickname não pode ser repetido
+    # maximo de 5 endereços por usuario
+    # não pode repetir o zipcode
+    
     
     
     
