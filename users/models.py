@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 
 class Address(models.Model):
-    nickname = models.CharField(max_length=20)
+    nickname = models.CharField(max_length=20, blank=True)
     street = models.CharField(max_length=30)
-    house_number = models.IntegerField()
+    house_number = models.IntegerField(blank=True)
     zipcode = models.CharField(max_length=9)
     city = models.CharField(max_length=30)
     state = models.CharField(max_length=30)
