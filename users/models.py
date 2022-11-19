@@ -1,15 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
-    name = models.CharField(max_length=200)
-    CPF = models.CharField(max_length=14)
-    birth_date = models.DateField()
-    email = models.EmailField()
-    password = models.CharField(max_length=20)
-    phone_number = models.CharField(max_length=20)
-    #addresses = []
-    
+
 class Address(models.Model):
     nickname = models.CharField(max_length=20)
     street = models.CharField(max_length=30)
@@ -18,3 +10,14 @@ class Address(models.Model):
     city = models.CharField(max_length=30)
     state = models.CharField(max_length=30)
     
+class User(models.Model):
+    name = models.CharField(max_length=200)
+    CPF = models.CharField(max_length=14)
+    birth_date = models.DateField()
+    email = models.EmailField()
+    password = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20)
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True)
+    #addresses = []
+    
+
