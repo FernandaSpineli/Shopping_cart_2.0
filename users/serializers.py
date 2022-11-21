@@ -2,12 +2,12 @@ from datetime import date
 
 from rest_framework import serializers
 
-from users.models import User, Address
+from users.models import User, Address, UserAddresses
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','address']
+        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','user_addresses']
         
     # maximo de 5 endereços por usuario      
       
@@ -63,15 +63,10 @@ def validated_password(user_password):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['id', 'nickname', 'street', 'house_number', 'zipcode', 'city', 'state']
+        fields = ['id', 'street', 'house_number', 'zipcode', 'city', 'state']
 
     def validate(self, attrs):
-        nickname = attrs.get('nickname', '')
         zipcode = attrs.get('zipcode', '')
-
-        if validated_address_nickname(nickname):
-            raise serializers.ValidationError('Apelido de endereço já em uso.')
-        
         if validated_address_zipcode(zipcode):
             raise serializers.ValidationError('CEP já em uso.')
     
@@ -87,6 +82,15 @@ def validated_address_zipcode(address_zipcode):
         if address.zipcode == address_zipcode:
             return True
 
+class UserAddressesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAddresses
+        fields = ['id', 'nickname', 'address']
+        
+    def validate(self, attrs):
+        nickname = attrs.get('nickname', '')
+        if validated_address_nickname(nickname):
+            raise serializers.ValidationError('Apelido de endereço já em uso.')
 
 
     
