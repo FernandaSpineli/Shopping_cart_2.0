@@ -36,7 +36,8 @@ def user_detail(request, id):
             return Response(status=204)
         
 @api_view(http_method_names=['GET', 'POST'])    
-def address_list(request):
+def address_list(request, id, address_id):
+    #object = get_object_or_404(User, id=id)
     if request.method == 'GET':
         objects = Address.objects.all()
         serializer = AddressSerializer(objects, many=True)

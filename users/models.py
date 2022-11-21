@@ -18,6 +18,6 @@ class User(models.Model):
     password = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True)
-    #addresses = []
+    #address = []
     
 

@@ -7,7 +7,7 @@ from users.models import User, Address
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number', 'address']
+        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','address']
         
     # maximo de 5 endereços por usuario      
       
