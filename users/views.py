@@ -6,12 +6,8 @@ from rest_framework.response import Response
 from users.models import User, Address
 from users.serializers import UserSerializer, AddressSerializer
 
-@api_view(http_method_names=['GET', 'POST'])
+@api_view(http_method_names=['POST'])
 def user_list(request):
-    if request.method == 'GET':
-        objects = User.objects.all()
-        serializer = UserSerializer(objects, many=True)
-        return JsonResponse(serializer.data, safe=False)
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
