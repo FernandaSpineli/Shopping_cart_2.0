@@ -2,12 +2,12 @@ from datetime import date
 
 from rest_framework import serializers
 
-from users.models import User, Address, UserAddresses
+from users.models import User, Address
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','user_addresses']
+        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','address']
         
     # maximo de 5 endereços por usuario      
       
@@ -81,16 +81,6 @@ def validated_address_zipcode(address_zipcode):
     for address in addresses:
         if address.zipcode == address_zipcode:
             return True
-
-class UserAddressesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserAddresses
-        fields = ['id', 'nickname', 'address']
-        
-    def validate(self, attrs):
-        nickname = attrs.get('nickname', '')
-        if validated_address_nickname(nickname):
-            raise serializers.ValidationError('Apelido de endereço já em uso.')
 
 
     
