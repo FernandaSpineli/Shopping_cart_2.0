@@ -63,15 +63,10 @@ def validated_password(user_password):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['id', 'nickname', 'street', 'house_number', 'zipcode', 'city', 'state']
+        fields = ['id', 'street', 'house_number', 'zipcode', 'city', 'state']
 
     def validate(self, attrs):
-        nickname = attrs.get('nickname', '')
         zipcode = attrs.get('zipcode', '')
-
-        if validated_address_nickname(nickname):
-            raise serializers.ValidationError('Apelido de endereço já em uso.')
-        
         if validated_address_zipcode(zipcode):
             raise serializers.ValidationError('CEP já em uso.')
     
@@ -86,7 +81,6 @@ def validated_address_zipcode(address_zipcode):
     for address in addresses:
         if address.zipcode == address_zipcode:
             return True
-
 
 
     
