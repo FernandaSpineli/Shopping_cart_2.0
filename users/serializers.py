@@ -3,14 +3,36 @@ from datetime import date
 from rest_framework import serializers
 
 from users.models import User, Address
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['id', 'street', 'house_number', 'zipcode', 'city', 'state']
+
+    def validate(self, attrs):
+        zipcode = attrs.get('zipcode', '')
+        if validated_address_zipcode(zipcode):
+            raise serializers.ValidationError('CEP já em uso.')
+    
+def validated_address_nickname(address_nickname):
+    addresses = Address.objects.all()
+    for address in addresses:
+        if address.nickname == address_nickname:
+            return True
+
+def validated_address_zipcode(address_zipcode):
+    addresses = Address.objects.all()
+    for address in addresses:
+        if address.zipcode == address_zipcode:
+            return True
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','address']
+        fields = ['id', 'name', 'CPF', 'birth_date', 'email', 'password', 'phone_number','addresses']
         
     # maximo de 5 endereços por usuario      
-      
+    addresses = AddressSerializer(many=True, read_only=True)
+       
     def validate(self, attrs):
         name = attrs.get('name', '')
         cpf = attrs.get('CPF', '')
@@ -60,29 +82,6 @@ def validated_password(user_password):
             count+=1
     return count    
     
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        fields = ['id', 'street', 'house_number', 'zipcode', 'city', 'state']
-
-    def validate(self, attrs):
-        zipcode = attrs.get('zipcode', '')
-        if validated_address_zipcode(zipcode):
-            raise serializers.ValidationError('CEP já em uso.')
-    
-def validated_address_nickname(address_nickname):
-    addresses = Address.objects.all()
-    for address in addresses:
-        if address.nickname == address_nickname:
-            return True
-
-def validated_address_zipcode(address_zipcode):
-    addresses = Address.objects.all()
-    for address in addresses:
-        if address.zipcode == address_zipcode:
-            return True
-
-
     
     
     
